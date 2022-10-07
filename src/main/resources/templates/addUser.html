@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Employee Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/home.css}" />
+
+</head>
+
+<body>
+    <div class = "container">
+        <h1>Employee Management System</h1>
+        <hr>
+        <h2>Save Employee</h2>
+        <form action="#" th:action="@{/userManagement/add}" th:object="${user}" method="POST">
+            <span style="color:black" th:if="${error}" th:text="${error}">Error</span>
+            <label>用户名</label>
+            <input type ="text" th:field = "*{username}" placeholder="Username" class="form-control mb-4 col-4">
+            <br>
+            <label>昵称</label>
+            <input type ="text" th:field = "*{usernickname}" placeholder="Usernickname" class="form-control mb-4 col-4">
+            <br>
+            <label>初始密码</label>
+            <input type ="password" th:field = "*{password}" placeholder="Password" class="form-control mb-4 col-4">
+
+            <br>
+            <div>
+                <label>职位:
+                    <input type="radio" name="roles"
+                           th:each="myRole : ${allRoles}"
+                           th:text="${myRole.name()}"
+                           th:value="${myRole}"
+                           th:field="*{usertype}"
+                           th:attr ="checked=${myRole.ordinal()==0?true:false}"
+                    />
+                </label>
+                <br>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-add">添加员工</button>
+        </form>
+        <hr>
+        <a th:href = "@{/admin/}" style="color:black">返回员工管理</a>
+</body>
+</html>
